@@ -16,7 +16,6 @@ def move(event):
         snake.targetDirection = direction
 
         if snake.targetX == targetX and snake.targetY == targetY:
-            print("here")
             if direction == "Up":
                 snake.y = snake.y - 5
             elif direction == "Down":
@@ -26,13 +25,11 @@ def move(event):
             elif direction == "Right":
                 snake.x = snake.x + 5
         else:
-            print("there")
             snake.targetX = targetX
             snake.targetY = targetY
 
-        print(mainCanvas.coords(snake))
-        mainCanvas.coords(snake, snake.x, snake.y, snake.x+snake.width, snake.y+snake.height)
-    motion = mainCanvas.after(500, move, event)
+        mainCanvas.coords(snake.tkObject, snake.x, snake.y, snake.x+snake.width, snake.y+snake.height)
+    motion = mainCanvas.after(250, move, event)
     
 mainCanvas = tk.Canvas(root, bg="black")
 mainCanvas.pack()
@@ -48,7 +45,7 @@ snake = Snake()
 snakeChain = SnakeChain()
 snakeChain.snakeList.append(snake)
 snake.draw(mainCanvas)
-print(mainCanvas.coords(snake))
+snakeChain.addBlock(mainCanvas)
 
 # create initial "after" event so that new motion afters can be cancelled
 motion = mainCanvas.after(500, lambda: print("hacky hack"))
